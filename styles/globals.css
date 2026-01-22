@@ -1,26 +1,138 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base styles */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply antialiased text-gray-900 dark:text-gray-100;
+}
+
+/* Custom utilities */
+@layer utilities {
+  .glass {
+    @apply bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl;
+  }
+  
+  .glass-card {
+    @apply bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-blue-50 via-white to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-semibold py-3 px-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300;
+  }
+}
+
+/* Markdown content styling */
+.markdown-content {
+  @apply prose prose-lg dark:prose-invert max-w-none;
+}
+
+.markdown-content h1 {
+  @apply text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4 mt-8;
+}
+
+.markdown-content h2 {
+  @apply text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3 mt-6;
+}
+
+.markdown-content h3 {
+  @apply text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 mt-4;
+}
+
+.markdown-content p {
+  @apply text-gray-700 dark:text-gray-300 mb-4 leading-relaxed;
+}
+
+.markdown-content ul {
+  @apply list-disc list-inside mb-4 text-gray-700 dark:text-gray-300;
+}
+
+.markdown-content ol {
+  @apply list-decimal list-inside mb-4 text-gray-700 dark:text-gray-300;
+}
+
+.markdown-content li {
+  @apply mb-2;
+}
+
+.markdown-content strong {
+  @apply font-bold text-gray-900 dark:text-gray-100;
+}
+
+.markdown-content em {
+  @apply italic;
+}
+
+.markdown-content hr {
+  @apply border-gray-200 dark:border-gray-700 my-8;
+}
+
+/* Loading animation */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+.loading-pulse {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
 }
